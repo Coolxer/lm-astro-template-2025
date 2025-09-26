@@ -4,3 +4,26 @@
 @theme {
   --font-sans: "Poppins", "sans-serif";
 }
+
+html {
+  @apply scroll-pt-28 text-[16px] leading-none;
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply text-black antialiased;
+}
+
+p,
+div {
+  @apply text-base;
+}
+
+p {
+  @apply text-gray-800;
+}
+
+strong,
+b {
+  @apply font-bold;
+}

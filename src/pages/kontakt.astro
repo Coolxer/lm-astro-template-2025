@@ -1,0 +1,26 @@
+---
+import config from "~/data/consts.json";
+
+import PageLayout from "@layouts/PageLayout.astro";
+import { type Meta, type Schema } from "@components/core/MySEO.astro";
+
+const meta: Meta = {
+  title: "Kontakt ",
+  description: "",
+};
+
+const schema: Schema = {
+  "@context": "http://schema.org",
+  "@type": "ContactPage",
+  url: "https://lukaszmilos.pl/kontakt",
+  breadcrumb: "Kontakt",
+  mainEntity: {
+    "@type": "ContactPoint",
+    telephone: "+48-123-456-789",
+    contactType: "customer service",
+    areaServed: "PL",
+  },
+};
+---
+
+<PageLayout pageTitle="Kontakt" meta={meta} schema={schema} />

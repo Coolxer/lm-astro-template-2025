@@ -1,5 +1,15 @@
 ---
-import Layout from "../layouts/Layout.astro";
+import { Toggle } from "astro-theme-toggle";
+import PageLayout from "@layouts/PageLayout.astro";
+
+import { type Meta, type Schema } from "@components/core/MySEO.astro";
+
+const meta: Meta = {
+  title: "Strona główna ",
+  description: "Opis mojej strony głównej",
+};
 ---
 
-<Layout />
+<PageLayout meta={meta}
+  ><Toggle style="width: 32px; height: 32px;" /></PageLayout
+>

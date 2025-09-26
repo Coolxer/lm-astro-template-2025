@@ -1,0 +1,46 @@
+---
+import { type Meta, type Schema } from "@components/core/MySEO.astro";
+
+import PageLayout from "@layouts/BaseLayout.astro";
+
+import config from "@data/consts.json";
+
+export interface Props {
+  pageTitle: string;
+  pageDescription?: string;
+  meta: Meta;
+  schema?: Schema;
+}
+
+const { pageTitle, pageDescription = null, meta, schema } = Astro.props;
+---
+
+<PageLayout meta={meta} schema={schema}>
+  <section id="relume" class="px-[5%] py-12 md:py-16 lg:py-20">
+    <div class="container">
+      <div
+        class="shadow relative flex min-h-[32rem] flex-col items-center justify-center rounded-3xl bg-landing-gray-400 p-8 text-center text-white md:min-h-[40rem] md:p-16"
+      >
+        <div class="w-full max-w-lg">
+          <p class="mb-8 text-3xl text-landing-red-100">{config.site.name}</p>
+
+          <h1 class="mb-5 text-6xl font-bold md:mb-6 md:text-9xl lg:text-10xl">
+            {pageTitle}
+          </h1>
+          <p class="md:text-md">{pageDescription}</p>
+          <p><slot /></p>
+        </div>
+        <div
+          class="mt-6 flex flex-wrap items-center justify-center gap-4 md:mt-8"
+        >
+          <a
+            href="/"
+            class="px-6 py-3 text-lg font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition"
+          >
+            Wróć na stronę główną
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</PageLayout>

@@ -1,0 +1,72 @@
+---
+// Font
+import "@fontsource/poppins";
+import "@assets/styles/global.css";
+
+import config from "@data/consts.json";
+
+import MySEO, { type Meta, type Schema } from "@components/core/MySEO.astro";
+import { getImagePath } from "astro-opengraph-images";
+
+const { url, site } = Astro;
+const openGraphImageUrl = getImagePath({ url, site });
+
+type Props = {
+  meta: Meta;
+  schema?: Schema;
+};
+
+const { meta, schema } = Astro.props;
+---
+
+<!doctype html>
+<html lang={config.site.language || "pl"}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+    <!-- Sitemap -->
+    <link rel="sitemap" href={"/sitemap-index.xml"} />
+
+    <!-- Meta and schema tags -->
+    <MySEO
+      meta={{
+        ...meta,
+        openGraph: {
+          basic: {
+            title: meta.title,
+            type: "website",
+            image: openGraphImageUrl,
+            url: url,
+          },
+          optional: {
+            description: meta.description,
+          },
+        },
+      }}
+      schema={schema}
+    />
+
+    <!-- RSS Link -->
+    <!-- <link
+  rel="alternate"
+  type="application/rss+xml"
+  title={SITE.NAME}
+  href={new URL("rss.xml", Astro.site)}
+  /> -->
+
+    <!-- GSC -->
+    <!-- <meta
+  name="google-site-verification"
+  content="UKFmXV6Z88v-ubaiozP5juUw0eEc_8AdyeZwphizZX0"
+    /> -->
+  </head>
+  <body>
+    <slot />
+    <!-- 100% privacy-first analytics -->
+    <!-- <script
+      async
+      src="https://scripts.simpleanalyticscdn.com/latest.js"
+      is:inline></script> -->
+  </body>
+</html>

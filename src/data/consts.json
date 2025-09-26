@@ -1,0 +1,14 @@
+{
+  "site": {
+    "domain": "https://minweb.pages.dev",
+    "name": "minweb",
+    "language": "pl",
+    "trailingSlash": "ignore",
+    "meta": {
+      "home-title": "minweb",
+      "meta-title-template": "%s - minweb"
+    },
+    "placeholderImage": "/placeholder.webp",
+    "themes": ["light", "dark"]
+  }
+}

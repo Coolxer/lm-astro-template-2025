@@ -1,0 +1,40 @@
+---
+import { type Meta, type Schema } from "@components/core/MySEO.astro";
+
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Header from "@components/ui/Header.astro";
+import Footer from "@components/ui/Footer.astro";
+
+type Props = {
+  pageTitle?: string;
+  pageDescription?: string;
+  meta: Meta;
+  schema?: Schema;
+};
+
+const { pageTitle, pageDescription, meta, schema } = Astro.props;
+---
+
+<BaseLayout meta={meta} schema={schema}>
+  <div class="w-full flex justify-center">
+    <div class="flex flex-col items-center w-full max-w-3xl shadow-primary">
+      <Header />
+      <main class="w-full py-12">
+        {
+          pageTitle && (
+            <header class="align-center flex flex-col items-center bg-accent-darkest px-6 py-8 text-white md:py-16">
+              <div class="flex max-w-prose flex-col items-center justify-center gap-4 text-center">
+                <h1>{pageTitle}</h1>
+                {pageDescription && <p class="text-lg">{pageDescription}</p>}
+                <slot name="header" />
+              </div>
+            </header>
+          )
+        }
+
+        <slot />
+      </main>
+      <Footer />
+    </div>
+  </div>
+</BaseLayout>
