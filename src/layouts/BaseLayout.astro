@@ -1,5 +1,4 @@
 ---
-// Font
 import "@fontsource/poppins";
 import "@assets/styles/global.css";
 
@@ -60,6 +59,23 @@ const { meta, schema } = Astro.props;
   name="google-site-verification"
   content="UKFmXV6Z88v-ubaiozP5juUw0eEc_8AdyeZwphizZX0"
     /> -->
+
+    <!-- Theme change - localStorage -->
+    <script is:inline define:vars={{ theme: config.site.themes[0] }}>
+      // ☝️ This script prevent the FART effect.
+      if (localStorage.getItem("theme") === null) {
+        document.documentElement.setAttribute("data-theme", theme);
+      } else
+        document.documentElement.setAttribute(
+          "data-theme",
+          localStorage.getItem("theme")
+        );
+    </script>
+
+    <script>
+      import { themeChange } from "theme-change";
+      themeChange();
+    </script>
   </head>
   <body>
     <slot />

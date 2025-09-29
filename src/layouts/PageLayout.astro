@@ -17,7 +17,7 @@ const { pageTitle, pageDescription, meta, schema } = Astro.props;
 
 <BaseLayout meta={meta} schema={schema}>
   <div class="w-full flex justify-center">
-    <div class="flex flex-col items-center w-full max-w-3xl shadow-primary">
+    <div class="flex flex-col items-center w-full shadow-primary">
       <Header />
       <main class="w-full py-12">
         {
@@ -31,7 +31,6 @@ const { pageTitle, pageDescription, meta, schema } = Astro.props;
             </header>
           )
         }
-
         <slot />
       </main>
       <Footer />

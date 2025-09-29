@@ -1,0 +1,142 @@
+# Add site links
+site_url: "https://example.com"
+connect-src: "https://api.cloudflare.com"
+
+backend:
+  name: github
+  repo: "coolxer/lm-astro-2025"
+  branch: main
+  skip_ci: true #disable creating a commit with only the CMS changes
+  # base_url: "https://sveltia-cms-auth.lukasz-milos-dev.workers.dev/"
+
+# Logo
+# logo_url: https://decapbridge.com/decapcms-with-bridge.svg
+
+media_folder: "src/assets/images" # where images will be stored in repo
+public_folder: "/images" # where images will reveal in the built site
+
+# Image optimization settings
+media_libraries:
+  default:
+    config:
+      transformations:
+        raster_image: # original format
+          format: webp # new format, only `webp` is supported
+          quality: 85 # default: 85
+          width: 2048 # default: original size
+          height: 2048 # default: original size
+        svg:
+          optimize: true
+  stock_assets: # turn off stock asset library
+    providers: []
+
+# Custom slug configuration
+slug:
+  encoding: 'ascii'
+  clean_accents: true
+  sanitize_replacement: '-'
+
+# Collections
+collections:
+  - name: posts
+    label: Posty
+    label_singular: Post
+    folder: src/posts
+    create: true
+    media_folder: /assets/images/posts
+    public_folder: /media/posts
+    editor:
+      preview: false
+    fields:
+      - name: title
+        label: Tytul
+      - name: description
+        label: Opis
+        widget: text
+        required: false
+      - name: categories
+        label: Categories
+        widget: select
+        multiple: true
+        options:
+          - { label: Travel, value: travel }
+          - { label: Food, value: food }
+          - { label: Technology, value: technology }
+          - { label: Lifestyle, value: lifestyle }
+      - name: body
+        label: Body
+        widget: markdown
+      - name: date
+        label: Data
+        widget: datetime
+        time_format: false
+        required: false
+  - name: config
+    label: Site Configuration
+    editor:
+      preview: false
+    files:
+      - name: headers
+        label: Headers
+        file: static/_headers # The path varies by framework
+        fields:
+          - name: body
+            label: Headers
+            widget: code # Can also be `text`
+            output_code_only: true
+            allow_language_selection: false
+      - name: redirects
+        label: Redirects
+        file: static/_redirects # The path varies by framework
+        fields:
+          - name: body
+            label: Redirects
+            widget: code # Can also be `text`
+            output_code_only: true
+            allow_language_selection: false
+
+# Singletons
+singletons:
+  - name: "app-settings"
+    label: "Ustawienia Aplikacji"
+    file: "src/data/settings.json" # ścieżka do Twojego pliku JSON
+    icon: "settings"
+    editor:
+      preview: false
+    fields:
+          - label: "Banner"
+            name: "banner"
+            widget: "object"
+            fields:
+              - label: "Widoczny"
+                name: "visible"
+                widget: "boolean"
+                default: true
+              - label: "Tekst"
+                name: "text"
+                widget: "string"
+                default: "Welcome to the Application!"
+              - label: "Kolor tła"
+                name: "bgcolor"
+                widget: "color"
+                default: "#000000"
+                allowInput: true
+              - label: "Kolor tekstu"
+                name: "textcolor"
+                widget: "color"
+                default: "#ffffff"
+                allowInput: true
+          
+          - label: "Kontakt"
+            name: "contact"
+            widget: "object"
+            fields:
+              - label: "Email"
+                name: "email"
+                widget: "string"
+                pattern: ['^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$', 'Wprowadź poprawny adres email']
+                default: "kontakt@gmail.com"
+              - label: "Telefon"
+                name: "phone"
+                widget: "string"
+                pattern: ['^\+?[1-9]\d{1,14}$', 'Wprowadź poprawny numer telefonu']
