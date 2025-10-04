@@ -1,0 +1,51 @@
+---
+import { getEntry } from "astro:content";
+import { Icon } from "astro-icon/components";
+import PageLayout from "@layouts/PageLayout.astro";
+import { type Meta } from "@components/core/MySEO.astro";
+
+const pageTitle = "Cennik";
+
+const meta: Meta = {
+  title: "Cennik",
+  description: "",
+};
+
+const pricingData = await getEntry("pricing", "pricing_items");
+const pricing = pricingData?.data; // To jest tablica obiektów
+---
+
+<PageLayout pageTitle={pageTitle} meta={meta}>
+  <section class="px-[5%] py-16 md:py-24 lg:py-28">
+    <div class="container">
+      <div class="overflow-x-auto">
+        <table class="table table-zebra">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Nazwa</th>
+              <th>Opis</th>
+              <th>Cena</th>
+              <th>Jednostka</th>
+              <th>Popularne?</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              pricing.map((item, index) => (
+                <tr>
+                  <th>{index + 1}</th>
+                  <td>{item.title}</td>
+                  <td>{item.description}</td>
+                  <td>{item.price}</td>
+                  <td>{item.unit}</td>
+                  <td>{item.isPopular ? "tak" : "nie"}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</PageLayout>

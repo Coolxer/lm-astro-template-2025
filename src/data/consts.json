@@ -1,14 +1,25 @@
 {
+  "company": {
+    "name": "Łukasz Miłoś",
+    "address": "39-305 Borowa, Polska",
+    "email": ["lukasz.milos.it@gmail.com", "kontakt@lukaszmilos.pl"],
+    "phone": ["123 456 789"]
+  },
   "site": {
-    "domain": "https://minweb.pages.dev",
-    "name": "minweb",
+    "domain": "https://example.com",
+    "name": "example",
     "language": "pl",
     "trailingSlash": "ignore",
     "meta": {
-      "home-title": "minweb",
-      "meta-title-template": "%s - minweb"
+      "home-title": "example",
+      "meta-title-template": "%s - example"
     },
-    "placeholderImage": "/placeholder.webp",
-    "themes": ["light", "dark"]
+    "placeholderImage": "/src/assets/images/placeholder.webp",
+    "themes": ["light", "dark"],
+    "itemsPerPage": {
+      "blog": 2,
+      "projects": 6,
+      "reviews": 12
+    }
   }
 }

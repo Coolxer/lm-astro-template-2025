@@ -1,0 +1,36 @@
+---
+import { getCollection, render } from "astro:content";
+import PageLayout from "@layouts/PageLayout.astro";
+import { type Meta } from "@components/core/MySEO.astro";
+import ReviewCard from "@components/collection/ReviewCard.astro";
+
+const pageTitle = "Opinie";
+const pageDescription = "Co mówią o nas klienci?";
+
+const meta: Meta = {
+  title: "Opinie",
+  description: "",
+};
+
+const reviews = (await getCollection("reviews"))
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+// Renderuj każdą opinię do HTML
+const renderedReviews = await Promise.all(
+  reviews.map(async (review) => {
+    const { Content } = await render(review);
+    return { ...review, Content };
+  })
+);
+---
+
+<PageLayout pageTitle={pageTitle} pageDescription={pageDescription} meta={meta}>
+  <section id="relume" class="px-[5%] py-16 md:py-24 lg:py-28">
+    <div class="container">
+      <div class="columns-1 gap-x-8 md:columns-2 lg:columns-3">
+        {renderedReviews.map((review) => <ReviewCard review={review} />)}
+      </div>
+    </div>
+  </section>
+</PageLayout>

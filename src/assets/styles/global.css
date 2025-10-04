@@ -3,7 +3,10 @@
 
 @plugin "daisyui";
 
-/* Daisy UI */
+/* =========================
+   Daisy UI
+   ========================= */
+
 @plugin "daisyui" {
   themes:
     light --default,
@@ -13,7 +16,9 @@
 /* to be able to use dark: selector if needed */
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
-/* Ogólne style */
+/* =========================
+   Ogólne style
+   ========================= */
 
 @theme {
   --font-sans: "Poppins", "sans-serif";
@@ -54,7 +59,60 @@ section {
   @apply scroll-mt-28;
 }
 
-/* Relume container */
+
+@utility text-h1 {
+  @apply text-6xl font-bold md:mb-6 md:text-9xl lg:text-10xl;
+}
+
+@utility text-h2 {
+  @apply mb-5 text-5xl font-bold md:mb-6 md:text-7xl lg:text-8xl;
+}
+
+@utility text-h3 {
+  @apply mb-5 text-4xl font-bold md:mb-6 md:text-5xl lg:text-6xl;
+}
+
+@utility text-h4 {
+  @apply mb-5 text-2xl font-bold leading-[1.4] md:mb-6 md:text-3xl md:leading-[1.2] lg:text-4xl;
+}
+
+@utility text-h5 {
+  @apply mb-3 text-xl font-bold md:mb-4 md:text-2xl;
+}
+
+@utility text-h6 {
+  @apply mb-3 text-base font-bold leading-[1.4] md:mb-4 md:text-xl;
+}
+
+
+h1 {
+  @apply text-h1;
+}
+
+h2 {
+  @apply text-h2;
+}
+
+h3 {
+  @apply text-h3;
+}
+
+h4 {
+  @apply text-h4;
+}
+
+h5 {
+  @apply text-h5;
+}
+
+h6 {
+  @apply text-h6;
+}
+
+
+/* =========================
+   RELUME
+   ========================= */
 
 /* Konfiguracja kontenera */
 .container {
@@ -88,7 +146,6 @@ section {
   }
 }
 
-/* RELUME config */
 @theme {
   /* --- Breakpointy (zamiennik `theme.screens`) --- */
   --breakpoint-sm: 480px;
@@ -234,157 +291,14 @@ section {
   --color-link-primary: #000000;
   --color-link-secondary: #666666;
   --color-link-alternative: #ffffff;
-
-  /* --- Animacje (zamiennik `extend.keyframes` + `extend.animation`) → `animate-*` --- */
-  /* --animate-accordion-down: accordion-down 0.2s ease-out;
-  --animate-accordion-up: accordion-up 0.2s ease-out;
-
-  --animate-loop-horizontally: loop-horizontally 20s linear infinite;
-  --animate-loop-testimonials: loop-testimonials 30s linear infinite;
-  --animate-loop-vertically: loop-vertically 30s linear infinite;
-  --animate-loop-vertically-top: loop-vertically-top 50s linear infinite;
-  --animate-loop-vertically-bottom: loop-vertically-bottom 50s linear infinite;
-
-  --animate-marquee-horizontally: marquee-top 30s linear infinite;
-  --animate-marquee-top: marquee-top 50s linear infinite;
-  --animate-marquee-right: marquee-right 25s linear infinite;
-  --animate-marquee-bottom: marquee-bottom 50s linear infinite;
-  --animate-marquee-left: marquee-left 25s linear infinite;
-
-  --animate-tabs: tabs 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-
-  @keyframes accordion-down {
-    from {
-      height: 0px;
-    }
-    to {
-      height: var(--radix-accordion-content-height);
-    }
-  }
-  @keyframes accordion-up {
-    from {
-      height: var(--radix-accordion-content-height);
-    }
-    to {
-      height: 0px;
-    }
-  }
-  @keyframes loop-horizontally {
-    from {
-      transform: translateX(0);
-    }
-    to {
-      transform: translateX(-100%);
-    }
-  }
-  @keyframes loop-testimonials {
-    from {
-      transform: translateX(0);
-    }
-    to {
-      transform: translateX(-135rem);
-    }
-  }
-  @keyframes loop-vertically {
-    from {
-      transform: translateY(0);
-    }
-    to {
-      transform: translateY(-50%);
-    }
-  }
-  @keyframes loop-vertically-top {
-    from {
-      transform: translateY(0);
-    }
-    to {
-      transform: translateY(-50%);
-    }
-  }
-  @keyframes loop-vertically-bottom {
-    from {
-      transform: translateY(-50%);
-    }
-    to {
-      transform: translateY(0);
-    }
-  }
-  @keyframes marquee-horizontally {
-    from {
-      transform: translateX(0);
-    }
-    to {
-      transform: translateX(-50%);
-    }
-  }
-  @keyframes marquee-top {
-    from {
-      transform: translateX(0);
-    }
-    to {
-      transform: translateX(-50%);
-    }
-  }
-  @keyframes marquee-right {
-    from {
-      transform: translateX(0);
-    }
-    to {
-      transform: translateX(100%);
-    }
-  }
-  @keyframes marquee-bottom {
-    from {
-      transform: translateX(-50%);
-    }
-    to {
-      transform: translateX(0%);
-    }
-  }
-  @keyframes marquee-left {
-    from {
-      transform: translateX(100%);
-    }
-    to {
-      transform: translateX(0);
-    }
-  }
-  @keyframes tabs {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
-  }*/
 }
 
-/* =========================
-   DODATKOWE UTYLITY (zamiennik małego pluginu addComponents)
-   ========================= */
-@utility animate-disable {
-  animation-name: none;
-  animation-duration: 0s;
-  --tw-enter-opacity: initial;
-  --tw-enter-scale: initial;
-  --tw-enter-rotate: initial;
-  --tw-enter-translate-x: initial;
-  --tw-enter-translate-y: initial;
-}
-
-@utility no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-  &::-webkit-scrollbar {
-    display: none;
-  }
-}
 
 /* =========================
    TYPOGRAPHY (zamiennik z @tailwindcss/typography theme(...))
    ========================= */
 /* W v4 dostrajanie robimy w CSS, nadpisując `.prose*`. */
-.prose {
+ .prose {
   color: var(--color-text-primary);
   line-height: 1.5;
   max-width: 100%;
@@ -455,6 +369,7 @@ section {
   opacity: 0.8;
   line-height: 1.5;
 }
+
 /* Nagłówki na górze containerów */
 .prose:where(:root) > h2:first-child {
   margin-top: var(--spacing-6);
@@ -569,4 +484,4 @@ section {
 .prose-lg blockquote {
   margin-top: var(--spacing-6);
   margin-bottom: var(--spacing-6);
-}
+} */

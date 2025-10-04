@@ -1,0 +1,61 @@
+---
+import Button from "@components/ui/Button.astro";
+
+export type FaqItem = {
+  question: string;
+  answer: string[];
+};
+
+export interface Props {
+  id?: string;
+  h3?: boolean;
+  items: FaqItem[];
+  class?: string;
+}
+
+const { id = "faq", h3 = false, items, class: className } = Astro.props;
+---
+
+<section id={id} class="px-[5%] py-16 md:py-24 lg:py-28">
+  <div class="container max-w-lg">
+    <div class="rb-12 mb-12 text-center md:mb-18 lg:mb-20">
+      <h2>Pytania i odpowiedzi</h2>
+      <p class="md:text-md">Dowiedz się więcej</p>
+    </div>
+
+    <div>
+      {
+        items?.map((item: FaqItem, index: number) => {
+          const isLast = index === items.length - 1;
+          return (
+            <>
+              <div class="collapse collapse-arrow bg-base-100 border border-base-300">
+                <input type="radio" name="my-accordion-2" checked="checked" />
+
+                {h3 ? (
+                  <h3 class="collapse-title font-semibold">{item.question}</h3>
+                ) : (
+                  <div class="collapse-title font-semibold">
+                    {item.question}
+                  </div>
+                )}
+                <div class="collapse-content text-sm">
+                  {item.answer.map((paragraph) => (
+                    <p class="mb-2 text-left">{paragraph}</p>
+                  ))}
+                </div>
+              </div>
+            </>
+          );
+        })
+      }
+    </div>
+    <div class="mx-auto mt-12 max-w-md text-center md:mt-18 lg:mt-20">
+      <h4>Masz inne pytania?</h4>
+      <p class="md:text-md">Zapytaj o co zechcesz!</p>
+      <div class="mt-6 md:mt-8">
+        <Button link="/kontakt"> Napisz </Button>
+      </div>
+    </div>
+  </div>
+</section>

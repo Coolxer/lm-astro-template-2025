@@ -1,0 +1,47 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+import { buildSlug } from "@utils/utils";
+
+import MyImage from "@components/ui/MyImage.astro";
+import Button from "@components/ui/Button.astro";
+
+export interface Props {
+  item: CollectionEntry<"portfolio">;
+  class?: string;
+}
+
+const { item, class: className } = Astro.props;
+
+const link = buildSlug(`/portfolio/${item.id}/`);
+---
+
+<div
+  class="grid grid-cols-1 gap-x-20 gap-y-6 border bg-base-300 rounded-box p-6 md:grid-cols-[3fr_4fr] md:gap-y-20 md:p-8 lg:p-12"
+>
+  <div class="flex flex-col justify-between">
+    <div>
+      <h3>
+        {item.data.title}
+      </h3>
+    </div>
+    <div class="mt-6 md:mt-8 md:text-md">
+      {item.data.success}
+    </div>
+    <div class="mt-6 flex flex-wrap items-center gap-4 md:mt-8">
+      <Button link={link}> Zobacz projekt </Button>
+    </div>
+  </div>
+  <div>
+    <MyImage
+      src={item.data.image.src}
+      alt={item.data.image.alt}
+      width={400}
+      height={200}
+      size="auto"
+      aspect="auto"
+      layout="object-contain"
+      class=""
+    />
+  </div>
+</div>

@@ -1,0 +1,48 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+import PageLayout from "@layouts/PageLayout.astro";
+
+import { type Meta, type Schema } from "@components/core/MySEO.astro";
+
+import PortfolioCard from "@components/collection/PortfolioCard.astro";
+import Button from "@components/ui/Button.astro";
+
+export interface Props {
+  items: CollectionEntry<"portfolio">[];
+  pageTitle?: string;
+  pageDescription?: string;
+  meta: Meta;
+  schema?: Schema;
+}
+
+const { items, pageTitle, pageDescription, meta, schema } = Astro.props;
+---
+
+<PageLayout
+  pageTitle={pageTitle}
+  pageDescription={pageDescription}
+  meta={meta}
+  schema={schema}
+>
+  <section id="relume" class="px-[5%] py-16 md:py-24 lg:py-28">
+    <div class="container">
+      {
+        items.length === 0 ? (
+          <div class="flex bg-base-300 py-16  rounded-box shadow flex-col gap-4 items-center justify-center w-auto">
+            <p class="text-h5">
+              Niestety, ale nie ma jeszcze realizacji na stronie
+            </p>
+            <Button link="/">Wróć do strony głównej</Button>
+          </div>
+        ) : (
+          <div class="grid grid-cols-1 gap-6 md:gap-12 lg:gap-20">
+            {items.map((item) => (
+              <PortfolioCard item={item} />
+            ))}
+          </div>
+        )
+      }
+    </div>
+  </section>
+</PageLayout>

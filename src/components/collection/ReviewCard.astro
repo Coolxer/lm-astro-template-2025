@@ -1,0 +1,45 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+import { Icon } from "astro-icon/components";
+
+export interface Props {
+  review: CollectionEntry<"reviews">;
+  class?: string;
+}
+
+const { review, class: className } = Astro.props;
+---
+
+<div
+  class="mb-8 inline-block w-full shadow-primary glass bg-primary-content rounded-box p-6 md:p-8"
+>
+  <div class="mb-5 flex md:mb-6">
+    {
+      Array(review.data.rating)
+        .fill(null)
+        .map(() => (
+          <Icon
+            name="tabler:star"
+            class="mr-1 size-6 text-yellow-400 [&_path]:fill-yellow-400"
+          />
+        ))
+    }
+  </div>
+  <article class="prose prose-sm max-w-none dark:prose-invert">
+    <review.Content />
+  </article>
+  <div
+    class="mt-5 flex w-full flex-col items-start gap-4 md:mt-6 md:w-fit md:flex-row md:items-center"
+  >
+    {
+      review.data.clientImage && (
+        <img
+          src={review.data.clientImage.src}
+          alt={review.data.clientImage.alt}
+          class="size-12 min-h-12 min-w-12 rounded-full object-cover"
+        />
+      )
+    }
+  </div>
+</div>

@@ -4,6 +4,8 @@ import config from "~/data/consts.json";
 import PageLayout from "@layouts/PageLayout.astro";
 import { type Meta, type Schema } from "@components/core/MySEO.astro";
 
+const pageTitle = "Kontakt";
+
 const meta: Meta = {
   title: "Kontakt ",
   description: "",
@@ -23,4 +25,4 @@ const schema: Schema = {
 };
 ---
 
-<PageLayout pageTitle="Kontakt" meta={meta} schema={schema} />
+<PageLayout pageTitle={pageTitle} meta={meta} schema={schema} />

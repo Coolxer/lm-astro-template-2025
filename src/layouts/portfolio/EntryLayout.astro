@@ -1,0 +1,73 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+import { type Meta, type Schema } from "@components/core/MySEO.astro";
+
+import PageLayout from "@layouts/PageLayout.astro";
+import ElementNavigation from "@components/collection/ElementNavigation.astro";
+import Gallery from "@components/ui/Gallery.astro";
+
+export interface Props {
+  item: CollectionEntry<"portfolio">;
+  prevItem: CollectionEntry<"portfolio"> | null;
+  nextItem: CollectionEntry<"portfolio"> | null;
+  meta: Meta;
+  schema?: Schema;
+}
+
+const { item, prevItem, nextItem, meta, schema } = Astro.props;
+---
+
+<PageLayout meta={meta} schema={schema}>
+  <section class="relative px-[5%] py-16 md:py-24 lg:py-28">
+    <div class="container relative z-10 max-w-lg text-center">
+      <h1 class="text-h2">
+        {item.data.title}
+      </h1>
+
+      <div
+        class="mt-8 flex flex-wrap items-center justify-center gap-4 md:mt-12"
+      >
+        {item.data.success}
+      </div>
+    </div>
+    <div class="absolute inset-0 z-0">
+      <img
+        src="https://d22po4pjz3o32e.cloudfront.net/placeholder-image.svg"
+        class="size-full object-cover"
+        alt="Relume placeholder image"
+      />
+      <div class="absolute inset-0 bg-black/50"></div>
+    </div>
+  </section>
+
+  <section class="px-[5%] py-16 md:py-24 lg:py-28">
+    <div class="container">
+      <div class="mx-auto max-w-lg">
+        <!-- Content -->
+        <article
+          class="prose prose-lg text-base-content prose-p:text-lg prose-img:aspect-square prose-img:w-[680px] prose-img:rounded-lg prose-img:object-cover prose-img:shadow-md"
+        >
+          <slot />
+        </article>
+
+        <Gallery
+          id="portfolio-gallery"
+          images={item.data.gallery}
+          maxColumns={2}
+        />
+
+        <!-- Item navigation -->
+        <ElementNavigation
+          collection="portfolio"
+          baseSlug="/portfolio/"
+          prevElement={prevItem}
+          prevText="poprzedni"
+          nextElement={nextItem}
+          nextText="następny"
+          class="my-8"
+        />
+      </div>
+    </div>
+  </section>
+</PageLayout>

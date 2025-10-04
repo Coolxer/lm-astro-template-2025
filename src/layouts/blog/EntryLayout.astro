@@ -1,0 +1,134 @@
+---
+import type { MarkdownHeading } from "astro";
+import type { CollectionEntry } from "astro:content";
+
+import { type Meta, type Schema } from "@components/core/MySEO.astro";
+
+import PageLayout from "@layouts/PageLayout.astro";
+import Toc from "@components/blog/Toc.astro";
+import ElementNavigation from "@components/collection/ElementNavigation.astro";
+import PostCard from "@components/collection/PostCard.astro";
+
+import Categories from "@components/collection/Categories.astro";
+
+export interface Props {
+  post: CollectionEntry<"blog">;
+  headings: MarkdownHeading[];
+  meta: Meta;
+  schema?: Schema;
+  relatedPosts: CollectionEntry<"blog">[];
+  prevPost: CollectionEntry<"blog"> | null;
+  nextPost: CollectionEntry<"blog"> | null;
+}
+
+const { post, headings, meta, schema, relatedPosts, prevPost, nextPost } =
+  Astro.props;
+---
+
+<PageLayout meta={meta} schema={schema}>
+  <section class="relative px-[5%] py-16 md:py-24 lg:py-28">
+    <div class="container relative z-10 max-w-lg text-center">
+      <!-- Post categories -->
+      {
+        post.data.categories && (
+          <div class="w-full flex items-center justify-center mb-6">
+            <div class="flex flex-row gap-4">
+              {post.data.categories.map((category) => (
+                <div class="rounded-full bg-primary px-3 py-1 text-sm font-semibold text-primary-content">
+                  {category}
+                </div>
+              ))}
+            </div>
+          </div>
+        )
+      }
+
+      <h1
+        class="mb-5 text-5xl font-bold text-text-alternative md:text-7xl lg:text-8xl"
+      >
+        {post.data.heading}
+      </h1>
+
+      <div
+        class="mt-8 flex flex-wrap items-center justify-center gap-4 md:mt-12"
+      >
+        {post.data.subheading}
+      </div>
+    </div>
+    <div class="absolute inset-0 z-0">
+      <img
+        src="https://d22po4pjz3o32e.cloudfront.net/placeholder-image.svg"
+        class="size-full object-cover"
+        alt="Relume placeholder image"
+      />
+      <div class="absolute inset-0 bg-black/50"></div>
+    </div>
+  </section>
+
+  <section class="px-[5%] py-16 md:py-24 lg:py-28">
+    <div class="container">
+      <div class="mx-auto max-w-lg">
+        <!-- Table of Contents -->
+        {
+          headings && (
+            <>
+              <Toc headings={headings} />
+              <hr class="h-px w-full border-0 bg-base-300" />
+            </>
+          )
+        }
+
+        <!-- Content -->
+        <article
+          class="prose prose-lg text-base-content prose-p:text-lg prose-img:aspect-square prose-img:w-[680px] prose-img:rounded-lg prose-img:object-cover prose-img:shadow-md"
+        >
+          <slot />
+        </article>
+
+        <!-- Post categories -->
+        <!-- <div
+            class="mt-8 flex w-full flex-col justify-between gap-4 md:flex-row md:gap-0"
+          >
+          
+            {
+              post.data.categories && (
+                <Categories
+                  baseSlug="/blog/kategoria/"
+                  categories={post.data.categories}
+                />
+              )
+            } 
+          </div> -->
+
+        <!-- Post navigation -->
+        <ElementNavigation
+          collection="blog"
+          baseSlug="/blog/"
+          prevElement={prevPost}
+          prevText="poprzedni wpis"
+          nextElement={nextPost}
+          nextText="następny wpis"
+          class="my-8"
+        />
+
+        <!-- Related posts -->
+        {
+          relatedPosts.length > 0 && (
+            <div class="mt-20">
+              <div class="rb-12 mb-6 grid grid-cols-1 items-start justify-start gap-y-8 md:mb-9 md:grid-[1fr_max-content] md:items-end md:justify-between md:gap-x-12 md:gap-y-4 lg:mb-10 lg:gap-x-20">
+                <div class="w-full max-w-lg">
+                  <h3>Powiązane posty</h3>
+                </div>
+              </div>
+              <div class="grid grid-cols-1 gap-x-8 gap-y-12 md:grid-cols-2 md:gap-y-16">
+                {relatedPosts.map((post) => (
+                  <PostCard post={post} />
+                ))}
+              </div>
+            </div>
+          )
+        }
+      </div>
+    </div>
+  </section>
+</PageLayout>
