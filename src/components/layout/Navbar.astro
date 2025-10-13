@@ -1,11 +1,13 @@
 ---
-import Logo from "@assets/icons/logo.svg";
 import { buildSlug } from "@utils/utils";
-import Button from "./Button.astro";
+import Logo from "@assets/icons/logo.svg";
+
+import Container from "@components/layout/Container.astro";
+import Button from "@components/ui/Button.astro";
 ---
 
-<section id="navbar" class="sticky top-0 z-[999] bg-base-200 px-[5%]">
-  <div class="container">
+<header id="navbar" class="w-full sticky top-0 z-[999] bg-base-200">
+  <Container size="full">
     <!-- Główny grid -->
     <div
       class="grid grid-cols-[1fr_auto] lg:grid-cols-[auto_1fr_auto] items-center gap-4 min-h-16 md:min-h-18"
@@ -129,13 +131,13 @@ import Button from "./Button.astro";
           aria-label="Toggle menu"
         >
           <span
-            class="my-[3px] h-0.5 w-6 bg-black transition-all duration-300 origin-center [.menu-open_&]:translate-y-2 [.menu-open_&]:rotate-[-45deg]"
+            class="my-[3px] h-0.5 w-6 bg-base-content transition-all duration-300 origin-center [.menu-open_&]:translate-y-2 [.menu-open_&]:rotate-[-45deg]"
           ></span>
           <span
-            class="my-[3px] h-0.5 w-6 bg-black transition-all duration-200 [.menu-open_&]:opacity-0"
+            class="my-[3px] h-0.5 w-6 bg-base-content transition-all duration-200 [.menu-open_&]:opacity-0"
           ></span>
           <span
-            class="my-[3px] h-0.5 w-6 bg-black transition-all duration-300 origin-center [.menu-open_&]:-translate-y-2 [.menu-open_&]:rotate-45"
+            class="my-[3px] h-0.5 w-6 bg-base-content transition-all duration-300 origin-center [.menu-open_&]:-translate-y-2 [.menu-open_&]:rotate-45"
           ></span>
         </button>
       </div>
@@ -215,8 +217,8 @@ import Button from "./Button.astro";
         </nav>
       </div>
     </nav>
-  </div>
-</section>
+  </Container>
+</header>
 
 <script>
   const navbar = document.getElementById("navbar");

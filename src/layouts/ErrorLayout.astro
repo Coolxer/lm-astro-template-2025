@@ -1,9 +1,11 @@
 ---
+import config from "@data/consts.json";
 import { type Meta, type Schema } from "@components/core/MySEO.astro";
 
 import PageLayout from "@layouts/BaseLayout.astro";
 
-import config from "@data/consts.json";
+import Section from "@components/layout/Section.astro";
+import Heading from "@components/ui/Heading.astro";
 
 export interface Props {
   pageTitle: string;
@@ -25,28 +27,26 @@ const {
 ---
 
 <PageLayout meta={meta} schema={schema}>
-  <section
-    class="px-[5%] py-12 md:py-16 lg:py-20 min-h-screen flex items-center"
-  >
-    <div class="container">
-      <div
-        class="shadow relative flex min-h-[32rem] flex-col items-center justify-center rounded-3xl p-8 text-center md:min-h-[40rem] md:p-16 bg-base-300"
-      >
-        <div class="w-full max-w-lg">
-          <p class="mb-8 text-3xl text-landing-red-100">{config.site.name}</p>
+  <Section>
+    <div
+      class="shadow relative flex min-h-[32rem] flex-col items-center justify-center rounded-3xl p-8 text-center md:min-h-[40rem] md:p-16 bg-base-300"
+    >
+      <div class="w-full max-w-lg">
+        <p class="mb-8 text-3xl text-landing-red-100">{config.site.name}</p>
 
-          <h1>
+        <div class="flex flex-col gap-4">
+          <Heading tag="h1" class="text-center">
             {pageTitle}
-          </h1>
+          </Heading>
           <p class="md:text-md">{pageDescription}</p>
           <p><slot /></p>
         </div>
-        <div
-          class="mt-6 flex flex-wrap items-center justify-center gap-4 md:mt-8"
-        >
-          <a href={href} class="btn btn-lg btn-primary"> {btnText} </a>
-        </div>
+      </div>
+      <div
+        class="mt-6 flex flex-wrap items-center justify-center gap-4 md:mt-8"
+      >
+        <a href={href} class="btn btn-lg btn-primary"> {btnText} </a>
       </div>
     </div>
-  </section>
+  </Section>
 </PageLayout>

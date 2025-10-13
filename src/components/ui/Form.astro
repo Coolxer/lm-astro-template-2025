@@ -5,6 +5,8 @@ interface Props {
 }
 
 const { buttonTitle = "Wyślij wiadomość" } = Astro.props;
+
+const formAPIKey = import.meta.env.WEB3FORMS_SECRET_KEY;
 ---
 
 <form
@@ -16,7 +18,7 @@ const { buttonTitle = "Wyślij wiadomość" } = Astro.props;
   novalidate
 >
   <!-- Web3Forms Access Key -->
-  <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE" />
+  <input type="hidden" name="access_key" value={formAPIKey} />
 
   <!-- Honeypot -->
   <input type="checkbox" class="hidden" style="display:none" name="botcheck" />

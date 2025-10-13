@@ -1,0 +1,51 @@
+---
+type Cols = 1 | 2 | 3 | 4;
+type Gap = "small" | "normal" | "large";
+type Align = "start" | "center" | "end" | "stretch";
+
+export interface Props {
+  cols?: Cols;
+  gap?: Gap;
+  align?: Align;
+  class?: string;
+}
+
+const {
+  cols = 2,
+  gap = "normal",
+  align = "stretch",
+  class: className,
+} = Astro.props;
+
+const colsClasses: Record<Cols, string> = {
+  1: "grid-cols-1",
+  2: "grid-cols-1 md:grid-cols-2",
+  3: "grid-cols-1 md:grid-cols-2 lg:grid-cols-3",
+  4: "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4",
+};
+
+const gapClasses: Record<Gap, string> = {
+  small: "gap-4 md:gap-6",
+  normal: "gap-8 md:gap-12",
+  large: "gap-12 md:gap-16",
+};
+
+const alignClasses: Record<Align, string> = {
+  start: "items-start",
+  center: "items-center",
+  end: "items-end",
+  stretch: "items-stretch",
+};
+---
+
+<div
+  class:list={[
+    "grid w-full",
+    colsClasses[cols],
+    gapClasses[gap],
+    alignClasses[align],
+    className,
+  ]}
+>
+  <slot />
+</div>

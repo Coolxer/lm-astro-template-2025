@@ -5,6 +5,7 @@ import { buildSlug } from "@utils/utils";
 
 import MyImage from "@components/ui/MyImage.astro";
 import Button from "@components/ui/Button.astro";
+import Heading from "@components/ui/Heading.astro";
 
 export interface Props {
   item: CollectionEntry<"portfolio">;
@@ -19,16 +20,16 @@ const link = buildSlug(`/portfolio/${item.id}/`);
 <div
   class="grid grid-cols-1 gap-x-20 gap-y-6 border bg-base-300 rounded-box p-6 md:grid-cols-[3fr_4fr] md:gap-y-20 md:p-8 lg:p-12"
 >
-  <div class="flex flex-col justify-between">
+  <div class="flex flex-col gap-4 justify-between">
     <div>
-      <h3>
+      <Heading tag="h3">
         {item.data.title}
-      </h3>
+      </Heading>
     </div>
-    <div class="mt-6 md:mt-8 md:text-md">
+    <div class="md:text-md">
       {item.data.success}
     </div>
-    <div class="mt-6 flex flex-wrap items-center gap-4 md:mt-8">
+    <div class="flex flex-wrap items-center gap-4">
       <Button link={link}> Zobacz projekt </Button>
     </div>
   </div>

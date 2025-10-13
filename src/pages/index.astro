@@ -3,9 +3,13 @@ import PageLayout from "@layouts/PageLayout.astro";
 
 import { type Meta, type Schema } from "@components/core/MySEO.astro";
 
-import MyImage from "@components/ui/MyImage.astro";
-
 import test from "@assets/images/pages/test.webp";
+
+import Section from "@components/layout/Section.astro";
+import Grid from "@components/layout/Grid.astro";
+import Heading from "@components/ui/Heading.astro";
+import Button from "@components/ui/Button.astro";
+import MyImage from "@components/ui/MyImage.astro";
 
 import Form from "@components/ui/Form.astro";
 
@@ -13,35 +17,39 @@ const meta: Meta = {
   title: "Strona główna ",
   description: "Opis mojej strony głównej",
 };
+
+const schema: Schema = {
+  "@context": "http://schema.org",
+  "@type": "ContactPage",
+  url: "https://lukaszmilos.pl/kontakt",
+  breadcrumb: "Kontakt",
+  mainEntity: {
+    "@type": "ContactPoint",
+    telephone: "+48-123-456-789",
+    contactType: "customer service",
+    areaServed: "PL",
+  },
+};
 ---
 
-<PageLayout meta={meta}>
-  <section class="px-[5%] py-16 md:py-24 lg:py-28">
-    <div class="container">
-      <div
-        class="grid grid-cols-1 gap-x-20 gap-y-12 md:gap-y-16 lg:grid-cols-2 lg:items-center"
-      >
-        <div>
-          <h1>Bezproblemowe strony internetowe</h1>
-          <p class="md:text-md">
-            Szybkie, bezpieczne i łatwe w edycji strony internetowe o które nie
-            trzeba się martwić
-          </p>
-          <div class="mt-6 flex flex-wrap gap-4 md:mt-8">
-            <button class="btn btn-lg btn-primary" title="Button">
-              Button</button
-            >
-            <button class="btn btn-outline btn-lg btn-primary" title="Button">
-              Button</button
-            >
-          </div>
-        </div>
-        <div>
-          <MyImage img={test} alt="Łukasz Miłoś" loading="eager" />
+<PageLayout meta={meta} schema={schema}>
+  <Section>
+    <Grid align="center">
+      <div class="flex flex-col gap-4">
+        <Heading tag="h1" look="h0">Testowe</Heading>
+        <p class="text-lg">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        </p>
+        <div class="flex flex-wrap gap-4 mt-4">
+          <Button link="#">Button</Button>
+          <Button link="#" class="btn-outline">Button</Button>
         </div>
       </div>
-    </div>
-  </section>
+      <div>
+        <MyImage img={test} alt="" />
+      </div>
+    </Grid>
+  </Section>
 
   <Form />
 </PageLayout>
