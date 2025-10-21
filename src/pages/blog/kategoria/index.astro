@@ -2,6 +2,9 @@
 import { type Meta } from "@components/core/MySEO.astro";
 import ErrorLayout from "@layouts/ErrorLayout.astro";
 
+const pageTitle = "Niepoprawny adres na blogu";
+const pageDescription = "Sprawdź adres lub wróć na stronę główną bloga.";
+
 const meta: Meta = {
   title: "404 - Brak strony",
   description:
@@ -12,8 +15,9 @@ const meta: Meta = {
 ---
 
 <ErrorLayout
-  pageTitle="Niepoprawny adres na blogu"
-  pageDescription="Sprawdź adres lub wróć na stronę główną bloga."
+  pageTitle={pageTitle}
+  pageDescription={pageDescription}
+  }
   href="/blog"
   btnText="Wróć na bloga"
   meta={meta}

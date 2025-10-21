@@ -20,7 +20,7 @@ const {
 } = Astro.props;
 ---
 
-<!-- Background Image -->
+{/* Background Image */}
 <div class="absolute inset-0 -z-10">
   <MyImage
     {img}
@@ -37,5 +37,5 @@ const {
   />
 </div>
 
-<!-- Optional Overlay -->
+{/* Optional Overlay */}
 {overlay && <div class:list={["absolute inset-0 -z-10", overlayColor]} />}

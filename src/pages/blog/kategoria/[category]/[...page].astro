@@ -6,7 +6,6 @@ import { slugify } from "@utils/utils";
 import config from "@data/consts.json";
 
 import ArchiveLayout from "@layouts/blog/ArchiveLayout.astro";
-
 import { type Meta, type Schema } from "@components/core/MySEO.astro";
 
 export async function getStaticPaths({
@@ -49,12 +48,12 @@ interface Props {
 const { category } = Astro.params;
 const { page, categories } = Astro.props;
 
-const pageTitle = `Kategoria: ${category} - Blog techniczny`;
+const pageTitle = `Kategoria: ${category} - Blog`;
 const pageDescription = `Zobacz posty z kategorii ${category}`;
 
 const meta: Meta = {
-  title: `${category} - Blog techniczny`,
-  description: `Zobacz posty z kategorii ${category}. Na blog znajdziesz też innej cenne i ciekawe informacje`,
+  title: `${category} - Blog`,
+  description: `Zobacz posty z kategorii ${category}.`,
 };
 
 const schema: Schema = {

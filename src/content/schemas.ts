@@ -1,5 +1,22 @@
 import { z, reference } from "astro:content"
 
+export const BLOG_CATEGORIES = [
+"brak kategorii", "biznes", "www", "cyfryzacja", "automatyzacja", "wskazówki"
+] as const;
+
+export const PORTFOLIO_CATEGORIES = [
+"www", "system", "automatyzacja"
+] as const;
+
+export const REVIEW_SOURCES = [
+'Google', 'Facebook', 'Gowork', 'TrustMate', 'Inne'
+]as const;
+
+export type BlogCategory = typeof BLOG_CATEGORIES[number];
+export type PortfolioCategory = typeof PORTFOLIO_CATEGORIES[number];
+export type ReviewSource = typeof REVIEW_SOURCES[number];
+
+
 export const metaSchema = z.object({
   title: z.string().max(60, "Tytuł SEO powinien mieć max 60 znaków"),
   description: z.string().max(160, "Opis SEO powinien mieć max 160 znaków"),
@@ -108,28 +125,51 @@ export const blogSchema = z.object({
     //categories: z.array(z.string()).default(['brak kategorii']),
     categories: z
       .array(
-        z.enum(["brak kategorii", "biznes", "www", "cyfryzacja", "automatyzacja", "wskazówki"])
+        z.enum(BLOG_CATEGORIES)
       )
-      .default(["brak kategorii"]),
-    // tags: z.array(z.string()).optional(),
-    knowledgeBase: z.boolean().default(false),
-    relatedPosts: z.array(reference("blog")).max(3).optional(),
+      .default([BLOG_CATEGORIES[0]]),
+    relatedPosts: z.array(reference("blog")).max(2).optional(),
     date: z.coerce.date(),
-    author: z.string().optional(),
+    //author: z.string().optional(),
     draft: z.boolean().optional(),
   })
 
 
   export const portfolioSchema = z.object({
+    order: z.number(),
     meta: metaSchema,
-    title: z.string(),
-    success: z.string(),
+
+    title: z.string(),  
     image: z.object({
       src: z.string(),
       alt: z.string(),
     }),
+
+    problem: z.string(),
+    target: z.string(),
+    result: z.string(),
+
+     webMetrics: z.object({
+      speed: z.number().optional(),
+      accessibility: z.number().optional(),
+      technics: z.number().optional(),
+      seo: z.number().optional(),
+      views: z.number().optional(),
+      clicks: z.number().optional(),
+    }).optional(),
+
+
+    link: z.string().url().optional(),
+
     gallery: z.array(z.object({src: z.string(),
       alt: z.string(),})).max(10).optional(),
+     videos: z.array(z.string()).optional(),
+
+    category: z.enum(PORTFOLIO_CATEGORIES),
+    review: reference("reviews").optional(),
+
+    relatedProjects: z.array(reference("portfolio")).max(2).optional(),
+
     draft: z.boolean().optional(),
   })
 
@@ -144,14 +184,14 @@ export const blogSchema = z.object({
     
     rating: z.number().min(1).max(5).default(5),
     
-    date: z.date({ 
-        required_error: "Data dodania jest wymagana." 
-    }),
-    
-    source: z.enum(['Google', 'Facebook', 'Gowork', 'TrustMate', 'Inne']).default('Inne'),
+    source: z.enum(REVIEW_SOURCES).default('Inne'),
     
     reviewLink: z.string().url().nullish(),
+
+    service: z.array(z.enum(PORTFOLIO_CATEGORIES)).min(1),
     
+    date: z.coerce.date(),
+
     draft: z.boolean().default(false),
 });
 

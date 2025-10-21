@@ -7,6 +7,7 @@ import sitemap from "@astrojs/sitemap";
 import favicons from "astro-favicons";
 import icon from "astro-icon";
 import playformCompress from "@playform/compress";
+import partytown from "@astrojs/partytown";
 
 import config from "./src/data/consts.json";
 
@@ -45,30 +46,32 @@ export default defineConfig({
       },
     }),
     playformCompress(),
-    favicons(),
+    favicons({
+      name: "Łukasz Miłoś - oficjalna strona",
+      short_name: "Łukasz Miłoś",
+    }),
     opengraphImages({
       options: {
         fonts: [
+          // Waga 400 (normal) - jeden plik ze wszystkimi znakami
           {
             name: "Roboto",
             weight: 400,
             style: "normal",
-            data: fs.readFileSync(
-              "node_modules/@fontsource/roboto/files/roboto-latin-400-normal.woff"
-            ),
+            data: fs.readFileSync("./src/assets/fonts/Roboto-Regular.ttf"),
           },
+          // Waga 700 (bold) - jeden plik ze wszystkimi znakami
           {
             name: "Roboto",
             weight: 700,
             style: "normal",
-            data: fs.readFileSync(
-              "node_modules/@fontsource/roboto/files/roboto-latin-700-normal.woff"
-            ),
+            data: fs.readFileSync("./src/assets/fonts/Roboto-Bold.ttf"),
           },
         ],
       },
       render: CustomOGTemplate,
     }),
+    partytown(),
   ],
 
   server: {

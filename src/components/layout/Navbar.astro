@@ -4,48 +4,39 @@ import Logo from "@assets/icons/logo.svg";
 
 import Container from "@components/layout/Container.astro";
 import Button from "@components/ui/Button.astro";
+
+import config from "@data/consts.json";
+
+import Nav from "@components/core/Nav.astro";
 ---
 
-<header id="navbar" class="w-full sticky top-0 z-[999] bg-base-200">
-  <Container size="full">
-    <!-- Główny grid -->
+<header
+  id="navbar"
+  class="w-full sticky top-0 z-[999] bg-primary text-primary-content border-b border-b-primary/50"
+>
+  <Container size="lg">
+    {/* Główny grid */}
     <div
       class="grid grid-cols-[1fr_auto] lg:grid-cols-[auto_1fr_auto] items-center gap-4 min-h-16 md:min-h-18"
     >
-      <!-- Logo -->
-      <a href={Astro.url.origin} class="justify-self-start">
-        <Logo width={64} height={64} fill="currentColor" />
+      {/* Logo */}
+      <a
+        href={Astro.url.origin}
+        class="justify-self-start border-2 rounded-full border-whit dark:border-transparent"
+        aria-label="Strona główna Łukasz Miłoś"
+      >
+        <Logo width={48} height={48} fill="currentColor" />
       </a>
 
-      <!-- Menu nawigacyjne - desktop (środek) -->
+      {/* Menu nawigacyjne - desktop (środek) */}
       <nav class="hidden lg:flex lg:items-center lg:justify-center lg:gap-1">
-        <a
-          href={buildSlug("portfolio")}
-          class="px-4 py-2 hover:text-primary transition-colors"
-        >
-          Portfolio
-        </a>
-        <a
-          href={buildSlug("cennik")}
-          class="px-4 py-2 hover:text-primary transition-colors"
-        >
-          Cennik
-        </a>
-        <a
-          href={buildSlug("opinie")}
-          class="px-4 py-2 hover:text-primary transition-colors"
-        >
-          Opinie
-        </a>
-        <a
-          href={buildSlug("blog")}
-          class="px-4 py-2 hover:text-primary transition-colors"
-        >
-          Blog
-        </a>
+        <Nav
+          class="px-8 py-2 transition-colors hover:text-primary-content/50 hover:underline"
+        />
 
-        <!-- Dropdown -->
-        <div id="dropdownWrapper" class="relative">
+        {/* Dropdown */}
+        {
+          /* <div id="dropdownWrapper" class="relative">
           <button
             id="dropdownToggle"
             class="flex items-center gap-2 px-4 py-2 hover:text-primary transition-colors"
@@ -89,19 +80,24 @@ import Button from "@components/ui/Button.astro";
               Link Seven
             </a>
           </nav>
-        </div>
+        </div> */
+        }
       </nav>
 
-      <!-- Kontrolki po prawej -->
+      {/* Kontrolki po prawej */}
       <div class="flex items-center gap-4 justify-self-end">
-        <!-- Przycisk - zawsze  -->
-        <Button link="tel:{config.phoneNumber}" class="btn-primary inline-flex">
-          Zadzwoń
-        </Button>
+        {/* Przycisk - zawsze */}
+        <Button link="kontakt" class="btn-neutral"> Kontakt </Button>
 
-        <!-- Theme Toggle - ZAWSZE widoczny -->
+        {/* Theme Toggle - ZAWSZE widoczny */}
         <label class="swap swap-rotate">
-          <input type="checkbox" class="theme-controller" value="dark" />
+          <span class="sr-only">Zmień motyw (jasny/ciemny)</span>
+          <input
+            type="checkbox"
+            class="theme-controller"
+            data-toggle-theme={config.site.themes.join(",")}
+            data-act-class="ACTIVECLASS"
+          />
 
           <svg
             class="swap-off fill-current w-6 h-6"
@@ -124,57 +120,38 @@ import Button from "@components/ui/Button.astro";
           </svg>
         </label>
 
-        <!-- Hamburger - tylko mobile -->
+        {/* Hamburger - tylko mobile */}
         <button
           id="hamburger"
           class="-mr-2 flex size-12 flex-col items-center justify-center lg:hidden"
           aria-label="Toggle menu"
         >
           <span
-            class="my-[3px] h-0.5 w-6 bg-base-content transition-all duration-300 origin-center [.menu-open_&]:translate-y-2 [.menu-open_&]:rotate-[-45deg]"
+            class="my-[3px] h-0.5 w-6 bg-neutral-content transition-all duration-300 origin-center [.menu-open_&]:translate-y-2 [.menu-open_&]:rotate-[-45deg]"
           ></span>
           <span
-            class="my-[3px] h-0.5 w-6 bg-base-content transition-all duration-200 [.menu-open_&]:opacity-0"
+            class="my-[3px] h-0.5 w-6 bg-neutral-content transition-all duration-200 [.menu-open_&]:opacity-0"
           ></span>
           <span
-            class="my-[3px] h-0.5 w-6 bg-base-content transition-all duration-300 origin-center [.menu-open_&]:-translate-y-2 [.menu-open_&]:rotate-45"
+            class="my-[3px] h-0.5 w-6 bg-neutral-content transition-all duration-300 origin-center [.menu-open_&]:-translate-y-2 [.menu-open_&]:rotate-45"
           ></span>
         </button>
       </div>
     </div>
 
-    <!-- Menu mobilne - poza gridem -->
+    {/* Menu mobilne - poza gridem */}
     <nav
       id="mobileMenu"
       class="h-0 overflow-hidden text-center transition-all duration-400 [.menu-open_&]:h-[100dvh] lg:hidden"
     >
-      <a
-        href={buildSlug("portfolio")}
+      <Nav
         class="block py-3 text-base first:pt-7 hover:text-primary"
-      >
-        Portfolio
-      </a>
-      <a
-        href={buildSlug("cennik")}
-        class="block py-3 text-base first:pt-7 hover:text-primary"
-      >
-        Cennik
-      </a>
-      <a
-        href={buildSlug("opinie")}
-        class="block py-3 text-base hover:text-primary"
-      >
-        Opinie
-      </a>
-      <a
-        href={buildSlug("blog")}
-        class="block py-3 text-base hover:text-primary"
-      >
-        Blog
-      </a>
+        additionalItems={[{ label: "Blog", slug: "blog" }]}
+      />
 
-      <!-- Dropdown mobile -->
-      <div id="dropdownWrapperMobile" class="relative">
+      {/* Dropdown mobile */}
+      {
+        /* <div id="dropdownWrapperMobile" class="relative">
         <button
           id="dropdownToggleMobile"
           class="flex w-full items-center justify-center gap-2 py-3 text-base hover:text-primary transition-colors"
@@ -215,7 +192,8 @@ import Button from "@components/ui/Button.astro";
             Link Seven
           </a>
         </nav>
-      </div>
+      </div> */
+      }
     </nav>
   </Container>
 </header>

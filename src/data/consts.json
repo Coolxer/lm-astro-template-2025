@@ -6,18 +6,18 @@
     "phone": ["123 456 789"]
   },
   "site": {
-    "domain": "https://example.com",
-    "name": "example",
+    "domain": "https://lukaszmilos.pl",
+    "name": "lukaszmilos.pl",
     "language": "pl",
     "trailingSlash": "ignore",
     "meta": {
-      "home-title": "example",
-      "meta-title-template": "%s - example"
+      "home-title": "Łukasz Miłoś",
+      "meta-title-template": "%s - Łukasz Miłoś"
     },
     "placeholderImage": "/src/assets/images/placeholder.webp",
     "themes": ["light", "dark"],
     "itemsPerPage": {
-      "blog": 2,
+      "blog": 9,
       "projects": 6,
       "reviews": 12
     }

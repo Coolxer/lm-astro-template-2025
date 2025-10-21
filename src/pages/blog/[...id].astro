@@ -46,7 +46,7 @@ function getRelatedPosts(
   });
 
   // Jeśli potrzeba więcej, dodaj posty z tych samych kategorii
-  if (relatedPosts.length < 3) {
+  if (relatedPosts.length < 2) {
     const otherPosts = posts.filter(
       (p) =>
         p.id !== currentPost.id &&
@@ -55,13 +55,13 @@ function getRelatedPosts(
     );
 
     // Losowo wybierz brakujące
-    while (relatedPosts.length < 3 && otherPosts.length > 0) {
+    while (relatedPosts.length < 2 && otherPosts.length > 0) {
       const randomIndex = Math.floor(Math.random() * otherPosts.length);
       relatedPosts.push(otherPosts.splice(randomIndex, 1)[0]);
     }
   }
 
-  return relatedPosts.slice(0, 3);
+  return relatedPosts.slice(0, 2);
 }
 
 const { Content, headings } = await render(post);

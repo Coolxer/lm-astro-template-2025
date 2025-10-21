@@ -4,11 +4,11 @@ export interface Props {
   class?: string;
 }
 
-const { size = "lg", class: className, ...rest } = Astro.props;
+const { size = "md", class: className, ...rest } = Astro.props;
 
 const sizeClasses = {
   sm: "max-w-3xl",
-  md: "max-w-5xl",
+  md: "max-w-4xl",
   lg: "max-w-7xl",
   xl: "max-w-screen-xl",
   prose: "max-w-prose",

@@ -1,5 +1,5 @@
 # Site configuration
-site_url: "https://example.com"
+site_url: "https://lukaszmilos.pl"
 connect-src: "https://api.cloudflare.com"
 
 backend:
@@ -44,6 +44,7 @@ collections:
     media_folder: /src/assets/images/blog
     public_folder: /images/blog
     slug: "{{slug}}"
+    identifier_field: heading   
     editor:
       preview: false
     fields:
@@ -51,19 +52,19 @@ collections:
       - label: "Meta (SEO)"
         name: "meta"
         widget: "object"
-        collapsed: false
+        collapsed: true
         fields:
           - label: "Tytuł SEO"
             name: "title"
             widget: "string"
             required: true
-            pattern: ['^.{1,50}$', 'Maksymalnie 50 znaków']
+            pattern: ['^.{1,60}$', 'Tytuł SEO powinien mieć maksymalnie 60 znaków']
           
           - label: "Opis SEO"
             name: "description"
             widget: "text"
             required: true
-            pattern: ['^.{1,130}$', 'Maksymalnie 130 znaków']
+            pattern: ['^.{1,160}$', 'Opis SEO powinien mieć maksymalnie 160 znaków']
           
           - label: "Canonical URL"
             name: "canonical"
@@ -81,123 +82,6 @@ collections:
             widget: "boolean"
             required: false
             default: false
-          
-          - label: "Charset"
-            name: "charset"
-            widget: "string"
-            required: false
-          
-          - label: "Obraz SEO"
-            name: "image"
-            widget: "object"
-            required: false
-            collapsed: true
-            fields:
-              - { label: "Źródło", name: "src", widget: "image", required: false }
-              - { label: "Alt", name: "alt", widget: "string", required: false }
-          
-          - label: "Alternatywne języki"
-            name: "languageAlternates"
-            widget: "list"
-            required: false
-            collapsed: true
-            fields:
-              - { label: "Href", name: "href", widget: "string" }
-              - { label: "HrefLang", name: "hrefLang", widget: "string" }
-          
-          - label: "Włącz Open Graph"
-            name: "og"
-            widget: "boolean"
-            required: false
-            default: true
-          
-          - label: "Włącz Twitter Card"
-            name: "tw"
-            widget: "boolean"
-            required: false
-            default: true
-          
-          # Open Graph
-          - label: "Open Graph"
-            name: "openGraph"
-            widget: "object"
-            required: false
-            collapsed: true
-            fields:
-              - label: "Podstawowe"
-                name: "basic"
-                widget: "object"
-                required: false
-                collapsed: true
-                fields:
-                  - { label: "Tytuł", name: "title", widget: "string", required: false }
-                  - { label: "Typ", name: "type", widget: "string", required: false, default: "article" }
-                  - { label: "Obraz", name: "image", widget: "string", required: false }
-                  - { label: "URL", name: "url", widget: "string", required: false }
-              
-              - label: "Opcjonalne"
-                name: "optional"
-                widget: "object"
-                required: false
-                collapsed: true
-                fields:
-                  - { label: "Audio", name: "audio", widget: "string", required: false }
-                  - { label: "Opis", name: "description", widget: "text", required: false }
-                  - { label: "Determiner", name: "determiner", widget: "string", required: false }
-                  - { label: "Locale", name: "locale", widget: "string", required: false, default: "pl_PL" }
-                  - { label: "Locale Alternate", name: "localeAlternate", widget: "list", required: false }
-                  - { label: "Nazwa strony", name: "siteName", widget: "string", required: false }
-                  - { label: "Video", name: "video", widget: "string", required: false }
-              
-              - label: "Obraz OG"
-                name: "image"
-                widget: "object"
-                required: false
-                collapsed: true
-                fields:
-                  - { label: "URL", name: "url", widget: "string", required: false }
-                  - { label: "Secure URL", name: "secureUrl", widget: "string", required: false }
-                  - { label: "Typ", name: "type", widget: "string", required: false }
-                  - { label: "Szerokość", name: "width", widget: "number", required: false, value_type: "int" }
-                  - { label: "Wysokość", name: "height", widget: "number", required: false, value_type: "int" }
-                  - { label: "Alt", name: "alt", widget: "string", required: false }
-              
-              - label: "Artykuł"
-                name: "article"
-                widget: "object"
-                required: false
-                collapsed: true
-                fields:
-                  - { label: "Data publikacji", name: "publishedTime", widget: "datetime", required: false }
-                  - { label: "Data modyfikacji", name: "modifiedTime", widget: "datetime", required: false }
-                  - { label: "Data wygaśnięcia", name: "expirationTime", widget: "datetime", required: false }
-                  - { label: "Autorzy", name: "authors", widget: "list", required: false }
-                  - { label: "Sekcja", name: "section", widget: "string", required: false }
-                  - { label: "Tagi", name: "tags", widget: "list", required: false }
-          
-          # Twitter Card
-          - label: "Twitter"
-            name: "twitter"
-            widget: "object"
-            required: false
-            collapsed: true
-            fields:
-              - label: "Card Type"
-                name: "card"
-                widget: "select"
-                required: false
-                default: "summary_large_image"
-                options:
-                  - { label: "Summary", value: "summary" }
-                  - { label: "Summary Large Image", value: "summary_large_image" }
-                  - { label: "App", value: "app" }
-                  - { label: "Player", value: "player" }
-              - { label: "Site (@username)", name: "site", widget: "string", required: false }
-              - { label: "Creator (@username)", name: "creator", widget: "string", required: false }
-              - { label: "Tytuł", name: "title", widget: "string", required: false }
-              - { label: "Obraz", name: "image", widget: "string", required: false }
-              - { label: "Image Alt", name: "imageAlt", widget: "string", required: false }
-              - { label: "Opis", name: "description", widget: "text", required: false }
       
       # Main Blog Fields
       - label: "Nagłówek"
@@ -243,14 +127,7 @@ collections:
           - { label: "Automatyzacja", value: "automatyzacja" }
           - { label: "Wskazówki", value: "wskazówki" }
       
-      - label: "Baza wiedzy"
-        name: "knowledgeBase"
-        widget: "boolean"
-        required: false
-        default: false
-        hint: "Czy ten post należy do bazy wiedzy?"
-      
-      - label: "Powiązane posty (max 3)"
+      - label: "Powiązane posty (max 2)"
         name: "relatedPosts"
         widget: "relation"
         collection: "blog"
@@ -258,13 +135,8 @@ collections:
         value_field: "{{slug}}"
         display_fields: ["heading"]
         multiple: true
-        max: 3
+        max: 2 # Zmieniono z 3 na 2, zgodnie ze schematem
         required: false
-      
-      - label: "Treść"
-        name: "body"
-        widget: "markdown"
-        required: true
       
       - label: "Data publikacji"
         name: "date"
@@ -273,16 +145,16 @@ collections:
         date_format: "YYYY-MM-DD"
         time_format: false
       
-      - label: "Autor"
-        name: "author"
-        widget: "string"
-        required: false
-      
       - label: "Wersja robocza"
         name: "draft"
         widget: "boolean"
         required: false
         default: false
+      
+      - label: "Treść" # Pole body musi być na końcu, aby reszta pól była widoczna jako frontmatter
+        name: "body"
+        widget: "markdown"
+        required: true
 
   # ========== PORTFOLIO ==========
   - name: portfolio
@@ -293,46 +165,34 @@ collections:
     media_folder: /src/assets/images/portfolio
     public_folder: /images/portfolio
     slug: "{{slug}}"
+    identifier_field: slug
     editor:
       preview: false
     fields:
-      # Meta SEO Object (identyczne jak w blog)
+      - label: "Kolejność wyświetlania"
+        name: "order"
+        widget: "number"
+        required: true
+        default: 0
+        value_type: "int"
+        hint: "Im niższa liczba, tym wyżej na liście pojawi się projekt."
+
       - label: "Meta (SEO)"
         name: "meta"
         widget: "object"
         collapsed: true
         fields:
-          - { label: "Tytuł SEO", name: "title", widget: "string", required: true, pattern: ['^.{1,50}$', 'Max 50 znaków'] }
-          - { label: "Opis SEO", name: "description", widget: "text", required: true, pattern: ['^.{1,130}$', 'Max 130 znaków'] }
+          - { label: "Tytuł SEO", name: "title", widget: "string", required: true, pattern: ['^.{1,60}$', 'Max 60 znaków'] }
+          - { label: "Opis SEO", name: "description", widget: "text", required: true, pattern: ['^.{1,160}$', 'Max 160 znaków'] }
           - { label: "Canonical URL", name: "canonical", widget: "string", required: false }
-          - { label: "Noindex", name: "noindex", widget: "boolean", required: false }
-          - { label: "Nofollow", name: "nofollow", widget: "boolean", required: false }
-          - { label: "Charset", name: "charset", widget: "string", required: false }
-          
-          - label: "Obraz SEO"
-            name: "image"
-            widget: "object"
-            required: false
-            collapsed: true
-            fields:
-              - { label: "Źródło", name: "src", widget: "image", required: false }
-              - { label: "Alt", name: "alt", widget: "string", required: false }
-          
-          - { label: "Włącz Open Graph", name: "og", widget: "boolean", required: false, default: true }
-          - { label: "Włącz Twitter Card", name: "tw", widget: "boolean", required: false, default: true }
+          - { label: "Noindex", name: "noindex", widget: "boolean", required: false, default: false }
+          - { label: "Nofollow", name: "nofollow", widget: "boolean", required: false, default: false }
       
-      # Portfolio Specific Fields
       - label: "Tytuł projektu"
         name: "title"
         widget: "string"
         required: true
-      
-      - label: "Sukces projektu"
-        name: "success"
-        widget: "text"
-        required: true
-        hint: "Opisz sukces/rezultat projektu"
-      
+
       - label: "Obraz główny"
         name: "image"
         widget: "object"
@@ -340,7 +200,40 @@ collections:
         fields:
           - { label: "Źródło", name: "src", widget: "image", required: true }
           - { label: "Opis (alt)", name: "alt", widget: "string", required: true }
+
+      - label: "Problem klienta"
+        name: "problem"
+        widget: "text"
+        required: true
+
+      - label: "Cel projektu"
+        name: "target"
+        widget: "text"
+        required: true
+
+      - label: "Rezultat / Rozwiązanie"
+        name: "result"
+        widget: "text"
+        required: true
+
+      - label: "Metryki Webowe (opcjonalnie)"
+        name: "webMetrics"
+        widget: "object"
+        collapsed: true
+        required: false
+        fields:
+          - { label: "Szybkość", name: "speed", widget: "number", value_type: "int", min: 0, max: 100, required: false }
+          - { label: "Dostępność", name: "accessibility", widget: "number", value_type: "int", min: 0, max: 100, required: false }
+          - { label: "Dobre praktyki", name: "technics", widget: "number", value_type: "int", min: 0, max: 100, required: false }
+          - { label: "SEO", name: "seo", widget: "number", value_type: "int", min: 0, max: 100, required: false }
+          - { label: "Wyświetlenia", name: "views", widget: "number", value_type: "int", required: false }
+          - { label: "Kliknięcia", name: "clicks", widget: "number", value_type: "int", required: false }
       
+      - label: "Link do projektu"
+        name: "link"
+        widget: "string"
+        required: false
+
       - label: "Galeria (max 10)"
         name: "gallery"
         widget: "list"
@@ -351,11 +244,44 @@ collections:
           - { label: "Źródło", name: "src", widget: "image", required: true }
           - { label: "Opis (alt)", name: "alt", widget: "string", required: true }
       
-      - label: "Opis projektu"
-        name: "body"
-        widget: "markdown"
+      - label: "Wideo (linki)"
+        name: "videos"
+        widget: "list"
         required: false
+        summary: "{{fields.url}}"
+        fields:
+          - { label: "URL do wideo", name: "url", widget: "string" }
+
+      - label: "Kategoria projektu"
+        name: "category"
+        widget: "select"
+        required: true
+        options:
+          - "www"
+          - "system"
+          - "automatyzacja"
+
+      - label: "Powiązana recenzja (opcjonalnie)"
+        name: "review"
+        widget: "relation"
+        collection: "reviews"
+        search_fields: ["clientName"]
+        value_field: "{{slug}}"
+        display_fields: ["clientName", "date"]
+        required: false
+        multiple: false
       
+      - label: "Powiązane projekty (max 2)"
+        name: "relatedProjects"
+        widget: "relation"
+        collection: "portfolio"
+        search_fields: ["title", "meta.title"]
+        value_field: "{{slug}}"
+        display_fields: ["title"]
+        multiple: true
+        max: 2
+        required: false
+
       - label: "Wersja robocza"
         name: "draft"
         widget: "boolean"
@@ -398,34 +324,42 @@ collections:
         value_type: "int"
         hint: "Ocena od 1 do 5"
       
-      - label: "Data"
-        name: "date"
-        widget: "datetime"
-        required: true
-        date_format: "YYYY-MM-DD"
-      
       - label: "Źródło recenzji"
         name: "source"
         widget: "select"
         required: true
         default: "Inne"
         options:
-          - { label: "Google", value: "Google" }
-          - { label: "Facebook", value: "Facebook" }
-          - { label: "Gowork", value: "Gowork" }
-          - { label: "TrustMate", value: "TrustMate" }
-          - { label: "Inne", value: "Inne" }
+          - 'Google'
+          - 'Facebook'
+          - 'Gowork'
+          - 'TrustMate'
+          - 'Inne'
       
       - label: "Link do recenzji"
         name: "reviewLink"
         widget: "string"
         required: false
         hint: "Pełny URL do recenzji na zewnętrznej platformie"
-      
-      - label: "Treść recenzji"
-        name: "body"
-        widget: "markdown"
+
+      - label: "Rodzaj wykonanej usługi"
+        name: "service"
+        widget: "select"
+        multiple: true
+        min: 1
         required: true
+        options:
+          - "www"
+          - "system"
+          - "automatyzacja"
+        hint: "Wybierz co najmniej jedną kategorię usługi, której dotyczy recenzja."
+
+      - label: "Data"
+        name: "date"
+        widget: "datetime"
+        required: true
+        date_format: "YYYY-MM-DD"
+        time_format: false
       
       - label: "Wersja robocza"
         name: "draft"
@@ -433,6 +367,10 @@ collections:
         required: false
         default: false
 
+      - label: "Treść recenzji"
+        name: "body"
+        widget: "markdown"
+        required: true
 
 # ========== SINGLETONS ==========
 singletons:

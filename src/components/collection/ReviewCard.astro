@@ -1,14 +1,15 @@
 ---
-import type { CollectionEntry } from "astro:content";
-
+import { type CollectionEntry, render } from "astro:content";
 import { Icon } from "astro-icon/components";
 
 export interface Props {
-  review: CollectionEntry<"reviews">;
+  item: CollectionEntry<"reviews">;
   class?: string;
 }
 
-const { review, class: className } = Astro.props;
+const { item, class: className } = Astro.props;
+
+const { Content } = await render(item);
 ---
 
 <div
@@ -16,7 +17,7 @@ const { review, class: className } = Astro.props;
 >
   <div class="flex md:mb-6">
     {
-      Array(review.data.rating)
+      Array(item.data.rating)
         .fill(null)
         .map(() => (
           <Icon
@@ -26,17 +27,19 @@ const { review, class: className } = Astro.props;
         ))
     }
   </div>
-  <article class="prose prose-sm max-w-none dark:prose-invert">
-    <review.Content />
+  <article
+    class="prose prose-sm max-w-none prose-p:text-neutral prose-strong:text-neutral"
+  >
+    <Content />
   </article>
   <div
     class="flex w-full flex-col items-start gap-4 md:w-fit md:flex-row md:items-center"
   >
     {
-      review.data.clientImage && (
+      item.data.clientImage && (
         <img
-          src={review.data.clientImage.src}
-          alt={review.data.clientImage.alt}
+          src={item.data.clientImage.src}
+          alt={item.data.clientImage.alt}
           class="size-12 min-h-12 min-w-12 rounded-full object-cover"
         />
       )

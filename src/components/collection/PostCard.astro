@@ -16,44 +16,69 @@ const { post, class: className } = Astro.props;
 const link = buildSlug(`/blog/${post.id}/`);
 ---
 
-<div
+<article
   class:list={[
-    "relative flex flex-col overflow-hidden rounded-box opacity-75 shadow border-2 border-neutral dark:border-white duration-300 ease-in-out hover:opacity-100",
+    "group bg-base-100 border-2 border-primary/30 rounded-box shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col h-full",
     className,
   ]}
 >
-  <a href={link} class="absolute left-0 top-0 size-full"></a>
-  <MyImage
-    src={"posts/" + post.data.image.src}
-    alt={post.data.image.alt}
-    width={500}
-    height={500}
-    rounded="rounded"
-    class="h-60 rounded-b-none"
-    loading="eager"
-  />
-
-  <div class="flex flex-grow flex-col justify-between gap-2 rounded-b p-6">
-    <div class="flex flex-col items-start gap-2">
-      <a href={link} class="duration-300 ease-in-out hover:text-accent">
-        <h3 class="text-h5">{post.data.heading}</h3>
+  {/* Obrazek */}
+  {
+    post.data.image && (
+      <a href={link} class="block overflow-hidden">
+        <MyImage
+          src={"posts/" + post.data.image.src}
+          alt={post.data.image.alt}
+          width={500}
+          height={500}
+          rounded="rounded-none"
+          class="h-48 w-full object-cover group-hover:scale-105 transition-transform duration-300"
+          loading="eager"
+        />
       </a>
-      <p class="line-clamp-3">{post.data.subheading}</p>
-    </div>
+    )
+  }
 
-    <div class="flex flex-row flex-wrap gap-2">
-      {
-        post.data.categories.map((category) => (
-          <a
-            class="block bg-accent-lightest px-2 hover:bg-accent-light"
-            href={buildSlug("/blog/kategoria/" + category)}
-          >
-            #{category}
-          </a>
-        ))
-      }
-    </div>
+  {/* Treść */}
+  <div class="flex flex-col flex-grow p-6 my-stack">
+    {/* Kategorie */}
+    {
+      post.data.categories && post.data.categories.length > 0 && (
+        <div class="flex flex-wrap gap-2">
+          {post.data.categories.map((category) => (
+            <a
+              href={buildSlug("/blog/kategoria/" + category)}
+              class="badge badge-primary badge-sm hover:badge-primary-focus transition-colors"
+            >
+              {category}
+            </a>
+          ))}
+        </div>
+      )
+    }
 
-    <Button class="btn-accent" link={link}>Przeczytaj</Button>
+    {/* Tytuł */}
+    <a href={link} class="group-hover:text-primary transition-colors">
+      <h3 class="text-xl font-bold leading-tight">
+        {post.data.heading}
+      </h3>
+    </a>
+
+    {/* Podtytuł / opis */}
+    {
+      post.data.subheading && (
+        <p class="text-base-content/80 line-clamp-3 leading-relaxed">
+          {post.data.subheading}
+        </p>
+      )
+    }
+
+    <div class="flex-grow"></div>
+
+    <div class="mt-4">
+      <Button link={link} class="btn-primary btn-sm w-full">
+        Czytaj więcej
+      </Button>
+    </div>
   </div>
-</div>
+</article>

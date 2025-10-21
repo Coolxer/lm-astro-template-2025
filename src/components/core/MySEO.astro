@@ -15,10 +15,10 @@ export type Schema = Props["schema"];
 const { meta, schema } = Astro.props;
 ---
 
-<!-- Technology -->
+{/* Technology */}
 <meta name="generator" content={Astro.generator} />
 
-<!-- Most schema tags -->
+{/* Most schema tags */}
 <SEO
   titleTemplate={meta.titleTemplate
     ? meta.titleTemplate
@@ -30,7 +30,7 @@ const { meta, schema } = Astro.props;
   {...meta}
 />
 
-<!-- JSON LD (structured data) -->
+{/* JSON LD (structured data) */}
 {
   schema && Object.keys(schema).length > 0 && (
     <script

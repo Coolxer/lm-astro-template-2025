@@ -1,6 +1,7 @@
 import type { Heading } from "@components/blog/TocHeading.astro"
 
 import config from "@data/consts.json"
+import {PORTFOLIO_CATEGORIES, type PortfolioCategory } from "~/content/schemas"
 
 export function formatDate(date: Date) {
   return Intl.DateTimeFormat("en-US", {
@@ -58,4 +59,13 @@ export function buildToc(headings: Heading[]): Heading[] {
     }
   })
   return toc
+}
+
+
+export function getPortfolioCategoryColor(category: PortfolioCategory): String {
+    return category === PORTFOLIO_CATEGORIES[0]
+    ?  "primary"
+    : category === PORTFOLIO_CATEGORIES[1]
+      ? "secondary"
+      : "accent";
 }

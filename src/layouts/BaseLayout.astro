@@ -24,10 +24,10 @@ const { meta, schema } = Astro.props;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-    <!-- Sitemap -->
+    {/* Sitemap */}
     <link rel="sitemap" href={"/sitemap-index.xml"} />
 
-    <!-- Meta and schema tags -->
+    {/* Meta and schema tags */}
     <MySEO
       meta={{
         ...meta,
@@ -46,23 +46,24 @@ const { meta, schema } = Astro.props;
       schema={schema}
     />
 
-    <!-- RSS Link -->
-    <!-- <link
-    rel="alternate"
-    type="application/rss+xml"
-    title={SITE.NAME}
-    href={new URL("rss.xml", Astro.site)}
-    /> -->
+    {/* RSS Link */}
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title={config.site.name}
+      href={new URL("rss.xml", Astro.site)}
+    />
 
-    <!-- GSC -->
-    <!-- <meta
+    {/* GSC */}
+    {
+      /*  <meta
     name="google-site-verification"
     content="UKFmXV6Z88v-ubaiozP5juUw0eEc_8AdyeZwphizZX0"
-    /> -->
+    /> */
+    }
 
-    <!-- Theme change - localStorage -->
+    {/* Theme change - localStorage */}
     <script is:inline define:vars={{ theme: config.site.themes[0] }}>
-      // ☝️ This script prevent the FART effect.
       if (localStorage.getItem("theme") === null) {
         document.documentElement.setAttribute("data-theme", theme);
       } else
@@ -79,10 +80,53 @@ const { meta, schema } = Astro.props;
   </head>
   <body>
     <slot />
-    <!-- 100% privacy-first analytics -->
-    <!-- <script
+    {/* 100% privacy-first analytics */}
+    {
+      /*  <script
       async
       src="https://scripts.simpleanalyticscdn.com/latest.js"
-      is:inline></script> -->
+      is:inline></script> */
+    }
   </body>
 </html>
+
+{/* Animations */}
+<script>
+  // Fade in on scroll - tylko dla sekcji
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("animate-in");
+        }
+      });
+    },
+    {
+      threshold: 0.05,
+      rootMargin: "100px 0px 0px 0px", // Większy margines górny
+    }
+  );
+
+  const sections = document.querySelectorAll("section");
+
+  // Sprawdź widoczne sekcje gdy przeglądarka jest bezczynna
+  const checkVisible = () => {
+    sections.forEach((section) => {
+      const rect = section.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        section.classList.add("animate-in");
+      }
+    });
+  };
+
+  // Obserwuj wszystkie sekcje
+  sections.forEach((el) => observer.observe(el));
+
+  // Sprawdź widoczne elementy bez blokowania głównego wątku
+  if ("requestIdleCallback" in window) {
+    requestIdleCallback(checkVisible);
+  } else {
+    // Fallback dla starszych przeglądarek
+    setTimeout(checkVisible, 100);
+  }
+</script>

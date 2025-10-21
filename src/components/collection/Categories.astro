@@ -27,7 +27,7 @@ console.log(currentCategory);
       <a
         href={buildSlug(allLink)}
         class:list={[
-          "btn btn-secondary",
+          "btn",
           allLink === currentCategory ? "btn-soft" : "btn-dash",
         ]}
       >
@@ -42,7 +42,7 @@ console.log(currentCategory);
         <a
           href={buildSlug(baseSlug + category)}
           class:list={[
-            "btn btn-secondary",
+            "btn",
             currentCategory === category ? "btn-soft" : "btn-dash ",
           ]}
         >

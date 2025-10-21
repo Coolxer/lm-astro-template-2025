@@ -4,7 +4,7 @@ import { type Meta, type Schema } from "@components/core/MySEO.astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import Navbar from "@components/layout/Navbar.astro";
 import Footer from "@components/layout/Footer.astro";
-import Container from "@components/layout/Container.astro";
+import Section from "~/components/layout/Section.astro";
 import Heading from "@components/ui/Heading.astro";
 
 type Props = {
@@ -26,17 +26,17 @@ const { pageTitle, pageDescription, meta, schema } = Astro.props;
       <main class="w-full py-12 block">
         {
           pageTitle && (
-            <header class="pt-4 md:pt-6 lg:pt-8">
-              <Container size="md">
-                <div class="flex flex-col gap-4 text-center">
-                  <Heading tag="h1">{pageTitle}</Heading>
-                  {pageDescription && (
-                    <p class="md:text-md">{pageDescription}</p>
-                  )}
-                  <slot name="header" />
-                </div>
-              </Container>
-            </header>
+            <Section
+              padding="md"
+              containerSize="md"
+              headingAndParagraphClasses="[&_h2]:text-base-content [&_p]:text-base-content [&_p]:text-2xl [&_p]:mt-4"
+            >
+              <Heading tag="h1" look="h0" slot="heading">
+                {pageTitle}
+              </Heading>
+              {pageDescription && <p slot="paragraph">{pageDescription}</p>}
+              <slot name="header" />
+            </Section>
           )
         }
         <slot />
