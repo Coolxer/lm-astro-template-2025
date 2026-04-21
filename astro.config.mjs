@@ -79,7 +79,6 @@ export default defineConfig({
     }),
   ],
 
-  experimental: {
     fonts: [
       {
         name: "Poppins",
@@ -90,7 +89,7 @@ export default defineConfig({
         subsets: ["latin", "latin-ext"],
       },
     ],
-  },
+
 
   server: {
     port: 4321,
